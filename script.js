@@ -3,6 +3,24 @@ let apiUrl = "https://pokeapi.co/api/v2/pokemon?limit=60&offset="
 let offset = 0
 const rootDOM = document.querySelector("#root")
 const imgBaseUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"
+function generateHeader(){
+    const header = document.createElement("header")
+    header.classList.add("header")
+    header.innerHTML = `
+    <div class="header_text">
+        <img src="assets/pokeball.svg" alt="" class="header_img">
+        <p class="header_text">Pokédex</p>
+    </div>
+    <div class="header_search">
+        <input type="search" value="" placeholder="Search">
+        <select name="sort" id="sort">
+            <option value="index">Index</option>
+            <option value="name">Name</option>
+        </select>
+    </div>
+    `
+    return header
+}
 function generatePokemons() {
     const list = document.createElement("ul")
     list.classList.add("list")
@@ -30,8 +48,8 @@ function generatePokemons() {
     return list
 }
 function render() {
-
-    rootDOM.append(generatePokemons())
+    
+    rootDOM.append(generateHeader(),generatePokemons())
 }
 function init() {
 
