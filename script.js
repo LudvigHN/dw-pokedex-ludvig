@@ -7,12 +7,12 @@ function generateHeader(){
     const header = document.createElement("header")
     header.classList.add("header")
     header.innerHTML = `
-    <div class="header_text">
+    <div class="header_hero">
         <img src="assets/pokeball.svg" alt="" class="header_img">
-        <p class="header_text">Pokédex</p>
+        <h1 class="header_title">Pokédex</h1>
     </div>
     <div class="header_search">
-        <input type="search" value="" placeholder="Search">
+        <input type="search" value="" placeholder="Search" class="search_bar">
         <select name="sort" id="sort">
             <option value="index">Index</option>
             <option value="name">Name</option>
@@ -40,7 +40,7 @@ function generatePokemons() {
                 <img src="${imageUrl}" alt="picture of ${element.name}" class="item_img">
                 <p class="pokemon_name">${element.name}</p>
                 `
-                
+
                 list.append(listItem)
 
             }
