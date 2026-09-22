@@ -30,15 +30,17 @@ function generatePokemons() {
         .then(data =>
             data.results.forEach(element => {
                 const id = getIdFromUrl(element.url)
+                const paddedNumber = id.padStart(3,"0")
+                
                 const imageUrl = imgBaseUrl + id + ".png"
                 const listItem = document.createElement("li")
                 listItem.classList.add("list_item")
                 listItem.innerHTML = `
-                <p class="pokemon_id">#${id}</p>
+                <p class="pokemon_id">#${paddedNumber}</p>
                 <img src="${imageUrl}" alt="picture of ${element.name}" class="item_img">
                 <p class="pokemon_name">${element.name}</p>
                 `
-
+                
                 list.append(listItem)
 
             }
