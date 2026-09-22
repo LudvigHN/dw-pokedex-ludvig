@@ -1,8 +1,11 @@
 import { getIdFromUrl } from "./js/idFromUrl.js";
-let apiUrl = "https://pokeapi.co/api/v2/pokemon?limit=60&offset="
-let offset = 0
+let apiUrl = "https://pokeapi.co/api/v2/pokemon?limit=60&"
+
 const rootDOM = document.querySelector("#root")
 const imgBaseUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"
+const list = document.createElement("ul");
+    list.classList.add("list");
+rootDOM.append(list)
 function generateHeader(){
     const header = document.createElement("header")
     header.classList.add("header")
@@ -21,14 +24,14 @@ function generateHeader(){
     `
     return header
 }
-function generatePokemons() {
-    const list = document.createElement("ul")
-    list.classList.add("list")
-    fetch(apiUrl+offset)
-        .then(response => { return response.json() }
-        )
-        .then(data =>
-            data.results.forEach(element => {
+async function generatePokemons() {
+    
+
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    apiUrl = data.next;
+                data.results.forEach(element => {
                 const id = getIdFromUrl(element.url)
                 const paddedNumber = id.padStart(3,"0")
                 
@@ -42,16 +45,26 @@ function generatePokemons() {
                 `
 
                 list.append(listItem)
-
-            }
-            )
-        )
-        offset += 60
-    return list
+            });
+            
 }
-function render() {
+
+function genBtn(){
+    const btn = document.createElement("button")
+    btn.classList.add("load_more_btn")
+    btn.textContent = "load More"
+    btn.addEventListener("click", async () => {
+        await generatePokemons()
+    })
     
-    rootDOM.append(generateHeader(),generatePokemons())
+    
+    return btn
+}
+async function render() {
+    rootDOM.append(genBtn())
+    rootDOM.prepend(generateHeader())
+    await generatePokemons()
+    
 }
 function init() {
 
