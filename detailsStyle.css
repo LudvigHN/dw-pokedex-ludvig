@@ -1,0 +1,113 @@
+/* details */
+
+#root{
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+}
+ul{
+    list-style: none;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    background-image: url(assets/transparentBall.svg);
+    background-repeat: no-repeat;
+    background-size: 300px;
+    background-position:top 10px right 10px ;
+}
+
+.title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    text-transform: capitalize;
+    padding: 0 2rem;
+}
+.title_wrapper{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    
+}
+.back_home__arrow{
+    max-width: 50px;
+}
+.details_img{
+    z-index: 1;
+    position: relative;
+    max-width: 30vw;
+    align-self: center;
+}
+.content_wrapper{
+    background-color: white;
+    transform: translateY(-100px);
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.8rem;
+}
+.types{
+    padding-top: 5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.type{
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+.about{
+    text-align: center;
+}
+.info_list{
+    display: flex;
+    justify-content: center;
+    
+}
+.height{ 
+    border-left: solid gray 2px;
+    border-right: solid gray 2px;
+    padding:0 2rem;
+    margin:0 2rem;
+    white-space: nowrap;
+}
+.info_item_top{
+    display: flex;
+    gap: 0.5rem;
+}
+.info_item_top img{
+    max-width: 10px;
+}
+.info__small_text{
+    color: #666666 ;
+    font-size: 0.9em;
+}
+.height, .weight, .abilities{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.ability{
+    margin: 0 0 4px;
+    text-transform: capitalize;
+}
+.ability:nth-child(1){
+    margin-top: 1rem;
+}
+.flavor_text{
+    max-width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.stats_title{
+    text-align: center;
+}
+.stat__name{
+    text-transform: uppercase;
+    font-weight: bold;
+}

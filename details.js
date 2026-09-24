@@ -14,37 +14,39 @@ async function generatePokemon() {
     card.classList.add("card","type_color")
     card.innerHTML = `
     <div class="title">
+        <div class="title_wrapper">
         <a href="index.html" class="back_home"><img src="assets/arrow.svg" alt="" class="back_home__arrow"></a>
         <h1 class="details_name">${data.name}</h1>
+        </div>
         <p class="pokemon_id">#${id.padStart(3, "0")}</p>
     </div>
     <img src="${data.sprites.other["official-artwork"].front_default}" alt="" class="details_img">
     <div class="content_wrapper">
     <ul class="types"></ul>
-    <h2 class="type_color_text">About</h2>
+    <h2 class="about type_color_text">About</h2>
     <div class="info">
         <ul class="info_list">
             <li class="weight">
                 <div class="info_item_top">
-                    <img src="" alt="">
+                    <img src="assets/weight.svg" alt="">
                     <p class="info__text">${data.weight/10} Kg</p>
                 </div>
                 <p class="info__small_text">Weight</p>
             </li>
             <li class="height">
-                <div>
-                    <img src="" alt="">
+                <div class="info_item_top">
+                    <img src="assets/height.svg" alt="">
                     <p class="info__text">${data.height/10} m</p>
+                    </div>
                     <p class="info__small_text">Height</p>
-                </div>
+                
             </li>
             <li class="abilities">
-                <p class="info text"></p>
-                <p class="info__small_text">abilities</p></li>
+                <p class="info__small_text">Abilities</p></li>
         </ul>
     </div>
     <p class="flavor_text"></p>
-    <h3 class="base_stats type_color_text">Base Stats</h3>
+    <h3 class="stats_title type_color_text">Base Stats</h3>
     <ul class="base_stats__list"></ul>
     </div>
     `
@@ -66,6 +68,7 @@ async function generatePokemon() {
     data.abilities.forEach(ability =>{
         const p = document.createElement("p")
         p.textContent = ability.ability.name
+        p.classList.add("ability")
         const abilitiesDOM = document.querySelector(".abilities")
         abilitiesDOM.prepend(p)
     })
