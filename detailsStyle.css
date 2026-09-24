@@ -4,9 +4,11 @@
     max-width: 600px;
     margin-right: auto;
     margin-left: auto;
+
 }
 ul{
     list-style: none;
+    padding: 0;
 }
 .card{
     display: flex;
@@ -15,6 +17,8 @@ ul{
     background-repeat: no-repeat;
     background-size: 300px;
     background-position:top 10px right 10px ;
+    border-radius: 1rem;
+
 }
 
 .title{
@@ -72,8 +76,8 @@ ul{
 .height{ 
     border-left: solid gray 2px;
     border-right: solid gray 2px;
-    padding:0 2rem;
-    margin:0 2rem;
+    padding:0 5%;
+    margin:0 5%;
     white-space: nowrap;
 }
 .info_item_top{
@@ -110,4 +114,31 @@ ul{
 .stat__name{
     text-transform: uppercase;
     font-weight: bold;
+    padding: 16px 4rem 6px;
+    width: 20px;
+    border-right: #666666 solid 2px;
+    margin: 0;
+    margin-right: 2rem;
+}
+.base_stats__list{
+    max-width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.stats_list__stat{
+    display: flex;
+    width: 100%;
+}
+.stat_value_wrapper{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+.stat_value_bar{
+    color: white;
+    width: 100%;
+}
+.stat_value_bar::-webkit-meter-optimum-value{
+    background: var(--stats_color);
 }

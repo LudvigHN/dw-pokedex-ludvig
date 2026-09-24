@@ -1,4 +1,4 @@
-import { getPokemonTypeColor } from "./js/TypeSwitch.js"
+import { getPokemonTypeColor } from "./components/TypeSwitch.js"
 const url = new URL(window.location.href)
 const params = url.searchParams
 const id = params.get("id")
@@ -11,7 +11,7 @@ async function generatePokemon() {
     const data = await response.json();
 
     const card = document.createElement("article")
-    card.classList.add("card","type_color")
+    card.classList.add("card", "type_color")
     card.innerHTML = `
     <div class="title">
         <div class="title_wrapper">
@@ -29,14 +29,14 @@ async function generatePokemon() {
             <li class="weight">
                 <div class="info_item_top">
                     <img src="assets/weight.svg" alt="">
-                    <p class="info__text">${data.weight/10} Kg</p>
+                    <p class="info__text">${data.weight / 10} Kg</p>
                 </div>
                 <p class="info__small_text">Weight</p>
             </li>
             <li class="height">
                 <div class="info_item_top">
                     <img src="assets/height.svg" alt="">
-                    <p class="info__text">${data.height/10} m</p>
+                    <p class="info__text">${data.height / 10} m</p>
                     </div>
                     <p class="info__small_text">Height</p>
                 
@@ -54,7 +54,7 @@ async function generatePokemon() {
     rootDOM.append(card)
 
     const TypesDOM = document.querySelector(".types")
-    data.types.forEach(type =>{
+    data.types.forEach(type => {
         const typeLi = document.createElement("li")
         typeLi.classList.add("type")
         typeLi.style.backgroundColor = getPokemonTypeColor(type.type.name)
@@ -64,74 +64,75 @@ async function generatePokemon() {
         TypesDOM.append(typeLi)
 
     })
-    
-    data.abilities.forEach(ability =>{
+
+    data.abilities.forEach(ability => {
         const p = document.createElement("p")
         p.textContent = ability.ability.name
         p.classList.add("ability")
         const abilitiesDOM = document.querySelector(".abilities")
         abilitiesDOM.prepend(p)
     })
-    
+
     const flavorTextDOM = document.querySelector(".flavor_text")
     fetch(data.species.url)
-    .then(response => response.json())
-    .then(data => {let text = data.flavor_text_entries[0].flavor_text;
-        text = text.replace("","")
-        flavorTextDOM.innerHTML=text
-    }
-    )
-    
+        .then(response => response.json())
+        .then(data => {
+            let text = data.flavor_text_entries[0].flavor_text;
+            text = text.replace("", "")
+            flavorTextDOM.innerHTML = text
+        }
+        )
+
     const baseStatsDOM = document.querySelector(".base_stats__list")
-        data.stats.forEach(stat => {
-            let statName = stat.stat.name
-            switch (statName){
-                case "hp":
+    data.stats.forEach(stat => {
+        let statName = stat.stat.name
+        switch (statName) {
+            case "hp":
                 statName = "hp";
                 break
-                case "attack":
+            case "attack":
                 statName = "atk";
                 break
-                case "defense":
+            case "defense":
                 statName = "def";
                 break
-                case "special-attack":
+            case "special-attack":
                 statName = "satk";
                 break
-                case "special-defense":
+            case "special-defense":
                 statName = "sdef";
                 break
-                case "speed":
+            case "speed":
                 statName = "spd";
                 break
-            }
-            const statLi = document.createElement("li")
-            statLi.classList.add("stats_list__stat")
-            const statValue = stat.base_stat.toString()
-            const paddedValue = statValue.padStart(3,"0")
-            statLi.innerHTML = `
+        }
+        const statLi = document.createElement("li")
+        statLi.classList.add("stats_list__stat")
+        const statValue = stat.base_stat.toString()
+        const paddedValue = statValue.padStart(3, "0")
+        statLi.innerHTML = `
             <p class="stat__name type_color_text">${statName}</p>
             <div class="stat_value_wrapper">
                 <p class="stat_value_num">${paddedValue}</p>
-                <progress class="stat_value_bar type_color" max="255" value="${statValue}"></progress>
+                <meter class="stat_value_bar" max="255" value="${statValue}"></meter>
             </div>
             `
-            baseStatsDOM.append(statLi)
-        })
-        
-    
+        baseStatsDOM.append(statLi)
+    })
+
+
     // .then(info => {flavorTextDOM.innerHTML = info.flavor_text_entries[0].flavor_text}
     // )
     const TypeColor = getPokemonTypeColor(data.types[0].type.name)
-    document.querySelectorAll(".type_color").forEach(element=>{
+    document.querySelectorAll(".type_color").forEach(element => {
         element.style.backgroundColor = TypeColor
     })
-    document.querySelectorAll(".type_color_text").forEach(element=>{
+    document.querySelectorAll(".type_color_text").forEach(element => {
         element.style.color = TypeColor
     })
-    
-    
-    
+
+    document.documentElement.style.setProperty('--stats_color', TypeColor);
+
 }
 
 
@@ -139,7 +140,7 @@ async function generatePokemon() {
 
 
 
-function render(){
+function render() {
     generatePokemon()
 }
 render()
