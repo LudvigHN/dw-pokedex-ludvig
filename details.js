@@ -1,4 +1,5 @@
-import { getPokemonTypeColor } from "./components/TypeSwitch.js"
+import { getPokemonTypeColor } from "./components/TypeColor.js"
+import { setTypeColor } from "./components/TypeColor.js"
 const url = new URL(window.location.href)
 const params = url.searchParams
 const id = params.get("id")
@@ -123,15 +124,7 @@ async function generatePokemon() {
 
     // .then(info => {flavorTextDOM.innerHTML = info.flavor_text_entries[0].flavor_text}
     // )
-    const TypeColor = getPokemonTypeColor(data.types[0].type.name)
-    document.querySelectorAll(".type_color").forEach(element => {
-        element.style.backgroundColor = TypeColor
-    })
-    document.querySelectorAll(".type_color_text").forEach(element => {
-        element.style.color = TypeColor
-    })
-
-    document.documentElement.style.setProperty('--stats_color', TypeColor);
+    setTypeColor(data.types[0].type.name)
 
 }
 

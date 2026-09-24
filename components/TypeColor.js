@@ -59,3 +59,15 @@ export function getPokemonTypeColor(type) {
     }
 }
 
+
+export function setTypeColor(data){
+    const TypeColor = getPokemonTypeColor(data)
+        document.querySelectorAll(".type_color").forEach(element => {
+            element.style.backgroundColor = TypeColor
+        })
+        document.querySelectorAll(".type_color_text").forEach(element => {
+            element.style.color = TypeColor
+        })
+    
+        document.documentElement.style.setProperty('--stats_color', TypeColor);
+}
