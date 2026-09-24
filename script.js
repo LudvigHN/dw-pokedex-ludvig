@@ -1,4 +1,4 @@
-import { getIdFromUrl } from "./js/idFromUrl.js";
+import { getIdFromUrl } from "./components/idFromUrl.js";
 let apiUrl = "https://pokeapi.co/api/v2/pokemon?limit=60&"
 
 const rootDOM = document.querySelector("#root")
