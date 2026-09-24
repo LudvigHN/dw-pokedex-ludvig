@@ -1,3 +1,4 @@
+import { getPokemonTypeColor } from "./js/TypeSwitch.js"
 const url = new URL(window.location.href)
 const params = url.searchParams
 const id = params.get("id")
@@ -10,7 +11,7 @@ async function generatePokemon() {
     const data = await response.json();
 
     const card = document.createElement("article")
-    card.classList.add("card")
+    card.classList.add("card","type_color")
     card.innerHTML = `
     <div class="title">
         <a href="index.html" class="back_home"><img src="assets/arrow.svg" alt="" class="back_home__arrow"></a>
@@ -18,8 +19,9 @@ async function generatePokemon() {
         <p class="pokemon_id">#${id.padStart(3, "0")}</p>
     </div>
     <img src="${data.sprites.other["official-artwork"].front_default}" alt="" class="details_img">
+    <div class="content_wrapper">
     <ul class="types"></ul>
-    <h2>About</h2>
+    <h2 class="type_color_text">About</h2>
     <div class="info">
         <ul class="info_list">
             <li class="weight">
@@ -42,12 +44,25 @@ async function generatePokemon() {
         </ul>
     </div>
     <p class="flavor_text"></p>
-    <h3 class="base_stats">Base Stats</h3>
+    <h3 class="base_stats type_color_text">Base Stats</h3>
     <ul class="base_stats__list"></ul>
+    </div>
     `
 
     rootDOM.append(card)
 
+    const TypesDOM = document.querySelector(".types")
+    data.types.forEach(type =>{
+        const typeLi = document.createElement("li")
+        typeLi.classList.add("type")
+        typeLi.style.backgroundColor = getPokemonTypeColor(type.type.name)
+        typeLi.innerHTML = `
+            ${type.type.name}
+        `
+        TypesDOM.append(typeLi)
+
+    })
+    
     data.abilities.forEach(ability =>{
         const p = document.createElement("p")
         p.textContent = ability.ability.name
@@ -92,10 +107,10 @@ async function generatePokemon() {
             const statValue = stat.base_stat.toString()
             const paddedValue = statValue.padStart(3,"0")
             statLi.innerHTML = `
-            <p class="stat__name">${statName}</p>
+            <p class="stat__name type_color_text">${statName}</p>
             <div class="stat_value_wrapper">
                 <p class="stat_value_num">${paddedValue}</p>
-                <progress class="stat_value_bar" max="255" value="${statValue}"></progress>
+                <progress class="stat_value_bar type_color" max="255" value="${statValue}"></progress>
             </div>
             `
             baseStatsDOM.append(statLi)
@@ -104,6 +119,15 @@ async function generatePokemon() {
     
     // .then(info => {flavorTextDOM.innerHTML = info.flavor_text_entries[0].flavor_text}
     // )
+    const TypeColor = getPokemonTypeColor(data.types[0].type.name)
+    document.querySelectorAll(".type_color").forEach(element=>{
+        element.style.backgroundColor = TypeColor
+    })
+    document.querySelectorAll(".type_color_text").forEach(element=>{
+        element.style.color = TypeColor
+    })
+    
+    
     
 }
 
