@@ -1,15 +1,13 @@
 const url = new URL(window.location.href)
 const params = url.searchParams
 const id = params.get("id")
-console.log(id);
 const apiUrl = "https://pokeapi.co/api/v2/pokemon/" + id
 const rootDOM = document.querySelector("#root")
-let response = ""
-let data = ""
+
 async function generatePokemon() {
 
-    response = await fetch(apiUrl);
-    data = await response.json();
+    const response = await fetch(apiUrl);
+    const data = await response.json();
 
     const card = document.createElement("article")
     card.classList.add("card")
@@ -44,8 +42,9 @@ async function generatePokemon() {
         </ul>
     </div>
     <p class="flavor_text"></p>
+    <h3 class="base_stats">Base Stats</h3>
+    <ul class="base_stats__list"></ul>
     `
-    
 
     rootDOM.append(card)
 
@@ -55,19 +54,52 @@ async function generatePokemon() {
         const abilitiesDOM = document.querySelector(".abilities")
         abilitiesDOM.prepend(p)
     })
+    
     const flavorTextDOM = document.querySelector(".flavor_text")
     fetch(data.species.url)
-    .then(results => results.json())
-    .then(info => {let text = info.flavor_text_entries[0].flavor_text;
+    .then(response => response.json())
+    .then(data => {let text = data.flavor_text_entries[0].flavor_text;
         text = text.replace("","")
         flavorTextDOM.innerHTML=text
-        
-        
-        
     }
     )
     
-        
+    const baseStatsDOM = document.querySelector(".base_stats__list")
+        data.stats.forEach(stat => {
+            let statName = stat.stat.name
+            switch (statName){
+                case "hp":
+                statName = "hp";
+                break
+                case "attack":
+                statName = "atk";
+                break
+                case "defense":
+                statName = "def";
+                break
+                case "special-attack":
+                statName = "satk";
+                break
+                case "special-defense":
+                statName = "sdef";
+                break
+                case "speed":
+                statName = "spd";
+                break
+            }
+            const statLi = document.createElement("li")
+            statLi.classList.add("stats_list__stat")
+            const statValue = stat.base_stat.toString()
+            const paddedValue = statValue.padStart(3,"0")
+            statLi.innerHTML = `
+            <p class="stat__name">${statName}</p>
+            <div class="stat_value_wrapper">
+                <p class="stat_value_num">${paddedValue}</p>
+                <progress class="stat_value_bar" max="255" value="${statValue}"></progress>
+            </div>
+            `
+            baseStatsDOM.append(statLi)
+        })
         
     
     // .then(info => {flavorTextDOM.innerHTML = info.flavor_text_entries[0].flavor_text}
