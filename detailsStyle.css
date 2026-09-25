@@ -41,7 +41,8 @@ ul{
 .details_img{
     z-index: 1;
     position: relative;
-    max-width: 30vw;
+    width: 70vw;
+    max-width: 400px;
     align-self: center;
 }
 .content_wrapper{
@@ -114,7 +115,7 @@ ul{
 .stat__name{
     text-transform: uppercase;
     font-weight: bold;
-    padding: 16px 4rem 6px;
+    padding: 16px 4rem 6px 2rem;
     width: 20px;
     border-right: #666666 solid 2px;
     margin: 0;
@@ -141,4 +142,25 @@ ul{
 }
 .stat_value_bar::-webkit-meter-optimum-value{
     background: var(--stats_color);
+}
+@media only screen and (max-width: 400px){
+    .info_list{
+        flex-direction: column;
+    }
+    .height, .weight, .abilities{
+        align-items: center;
+    }
+    .height{
+        border: 0;
+        border-top: #666666 solid 2px;
+        border-bottom:  #666666 solid 2px;
+        padding: 0;
+        margin: 0 1rem;
+    }
+    .stat__name{
+        padding-left: 1rem;
+        padding-right: 3.5rem;
+        margin-right: 1rem;
+    }
+    
 }
