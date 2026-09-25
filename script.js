@@ -7,8 +7,22 @@ const imgBaseUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/spr
 const list = document.createElement("ul");
 list.classList.add("list");
 rootDOM.append(list)
-
 async function generatePokemons() {
+    await pokemons()
+}
+let observer = new IntersectionObserver(function(entries){
+    entries.forEach(async function(entry){
+        if(entry.isIntersecting){
+            
+            await generatePokemons()
+            await getfifthLastItem()
+            observer.unobserve(entry.target)
+            observer.observe(fifththLastItem)
+        }
+    })
+})
+
+async function pokemons() {
 
 
     const response = await fetch(apiUrl);
@@ -35,22 +49,17 @@ async function generatePokemons() {
     });
 
 }
+let fifththLastItem = null
+async function getfifthLastItem(){
 
-function genBtn() {
-    const btn = document.createElement("button")
-    btn.classList.add("load_more_btn")
-    btn.textContent = "load More"
-    btn.addEventListener("click", async () => {
-        await generatePokemons()
-    })
-
-
-    return btn
+    fifththLastItem = document.querySelector(".list_item:nth-last-of-type(5)")
 }
+
 async function render() {
-    rootDOM.append(genBtn())
     rootDOM.prepend(generateHeader())
     await generatePokemons()
+    getfifthLastItem()
+    observer.observe(fifththLastItem)
 
 }
 function init() {
