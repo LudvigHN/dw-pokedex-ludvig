@@ -10,10 +10,10 @@ rootDOM.append(list)
 async function generatePokemons() {
     await pokemons()
 }
-let observer = new IntersectionObserver(function(entries){
-    entries.forEach(async function(entry){
-        if(entry.isIntersecting){
-            
+let observer = new IntersectionObserver(function (entries) {
+    entries.forEach(async function (entry) {
+        if (entry.isIntersecting) {
+
             await generatePokemons()
             await getfifthLastItem()
             observer.unobserve(entry.target)
@@ -50,7 +50,7 @@ async function pokemons() {
 
 }
 let fifththLastItem = null
-async function getfifthLastItem(){
+async function getfifthLastItem() {
 
     fifththLastItem = document.querySelector(".list_item:nth-last-of-type(5)")
 }
@@ -68,4 +68,15 @@ function init() {
 }
 init()
 
+const testDOM = document.querySelector(".search_bar")
 
+testDOM.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        
+        const url ="/details.html?id=" + testDOM.value
+        window.location.href = url
+        
+
+    }
+
+})
