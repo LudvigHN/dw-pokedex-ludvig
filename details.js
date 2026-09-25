@@ -1,5 +1,8 @@
 import { getPokemonTypeColor } from "./components/TypeColor.js"
 import { setTypeColor } from "./components/TypeColor.js"
+import { BaseStats } from "./components/BaseStats.js"
+import { FlavorText } from "./components/FlavorText.js"
+import { Abilities } from "./components/Abilities.js"
 const url = new URL(window.location.href)
 const params = url.searchParams
 const id = params.get("id")
@@ -66,60 +69,11 @@ async function generatePokemon() {
 
     })
 
-    data.abilities.forEach(ability => {
-        const p = document.createElement("p")
-        p.textContent = ability.ability.name
-        p.classList.add("ability")
-        const abilitiesDOM = document.querySelector(".abilities")
-        abilitiesDOM.prepend(p)
-    })
+    Abilities(data)
 
-    const flavorTextDOM = document.querySelector(".flavor_text")
-    fetch(data.species.url)
-        .then(response => response.json())
-        .then(data => {
-            let text = data.flavor_text_entries[0].flavor_text;
-            text = text.replace("", "")
-            flavorTextDOM.innerHTML = text
-        }
-        )
+    FlavorText(data)
 
-    const baseStatsDOM = document.querySelector(".base_stats__list")
-    data.stats.forEach(stat => {
-        let statName = stat.stat.name
-        switch (statName) {
-            case "hp":
-                statName = "hp";
-                break
-            case "attack":
-                statName = "atk";
-                break
-            case "defense":
-                statName = "def";
-                break
-            case "special-attack":
-                statName = "satk";
-                break
-            case "special-defense":
-                statName = "sdef";
-                break
-            case "speed":
-                statName = "spd";
-                break
-        }
-        const statLi = document.createElement("li")
-        statLi.classList.add("stats_list__stat")
-        const statValue = stat.base_stat.toString()
-        const paddedValue = statValue.padStart(3, "0")
-        statLi.innerHTML = `
-            <p class="stat__name type_color_text">${statName}</p>
-            <div class="stat_value_wrapper">
-                <p class="stat_value_num">${paddedValue}</p>
-                <meter class="stat_value_bar" max="255" value="${statValue}"></meter>
-            </div>
-            `
-        baseStatsDOM.append(statLi)
-    })
+    BaseStats(data)
 
 
     // .then(info => {flavorTextDOM.innerHTML = info.flavor_text_entries[0].flavor_text}
