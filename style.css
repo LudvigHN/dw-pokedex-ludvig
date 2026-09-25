@@ -118,6 +118,12 @@ body {
     .header{
         padding: 0;
     }
+    .pokemon_name{
+        font-size: 4vw;
+    }
+    .list{
+        gap: 0.5rem;
+    }
     
     
 }
@@ -133,4 +139,5 @@ body {
     .header_title{
         font-size: calc(15vw - 10px);
     }
+    
 }
