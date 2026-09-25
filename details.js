@@ -5,7 +5,7 @@ import { FlavorText } from "./components/FlavorText.js"
 import { Abilities } from "./components/Abilities.js"
 const url = new URL(window.location.href)
 const params = url.searchParams
-const id = params.get("id")
+let id = params.get("id")
 const apiUrl = "https://pokeapi.co/api/v2/pokemon/" + id
 const rootDOM = document.querySelector("#root")
 
@@ -13,7 +13,8 @@ async function generatePokemon() {
 
     const response = await fetch(apiUrl);
     const data = await response.json();
-
+    id = data.id
+    
     const card = document.createElement("article")
     card.classList.add("card", "type_color")
     card.innerHTML = `
@@ -22,7 +23,7 @@ async function generatePokemon() {
         <a href="index.html" class="back_home"><img src="assets/arrow.svg" alt="" class="back_home__arrow"></a>
         <h1 class="details_name">${data.name}</h1>
         </div>
-        <p class="pokemon_id">#${id.padStart(3, "0")}</p>
+        <p class="pokemon_id">#${id.toString().padStart(3, "0")}</p>
     </div>
     <img src="${data.sprites.other["official-artwork"].front_default}" alt="" class="details_img">
     <div class="content_wrapper">
@@ -81,11 +82,6 @@ async function generatePokemon() {
     setTypeColor(data.types[0].type.name)
 
 }
-
-
-
-
-
 
 function render() {
     generatePokemon()
